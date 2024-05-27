@@ -79,6 +79,12 @@ Copy the provided configs and cva6 platform to bao's directory:
 
 `cp -r ../bao/configs/* ./configs`
 
+> **_:notebook: Note:_** If you want to use this tutorial to test the IOPMP 
+> use the config provided by the baremetal guest directly at: 
+> [bao-baremetal-guest/config/config.c](./bao-baremetal-guest/config/config.c)
+
+*Note:* 
+
 In the configs you want to use, in the *configs/xxxconfig/config.c* files, setup the absolute path for the
 vm images. For example:
 
@@ -123,6 +129,14 @@ To build **opensbi** with **bao** and **linux** for fpga run:
 To build **opensbi** with just **linux** for fpga run:
 
 `make CROSS_COMPILE=riscv64-unknown-linux-gnu- PLATFORM=fpga/ariane FW_PAYLOAD=y FW_PAYLOAD_PATH=../../cva6-sdk/install64/Image FW_FDT_PATH=../linux/cva6-minimal.dtb`
+
+> **_:notebook: Note:_** If you want to use this tutorial to test the IOPMP 
+> use the dtb provided by the baremetal guest directly at: 
+> [bao-baremetal-guest/cva6-iopmp-minimal-bao.dts](./bao-baremetal-guest/cva6-iopmp-minimal-bao.dts)
+
+`dtc -I dts -O dtb -o ./bao-baremetal-guest/cva6-iopmp-minimal-bao.dtb ./bao-baremetal-guest/cva6-iopmp-minimal-bao.dts`
+
+`make CROSS_COMPILE=riscv64-unknown-linux-gnu- PLATFORM=fpga/ariane FW_PAYLOAD=y FW_PAYLOAD_PATH=../bao-hypervisor/bin/cva6/cva6-baremetal/bao.bin FW_FDT_PATH=../bao-baremetal-guest/cva6-iopmp-minimal-bao.dtb`
 
 ## 2) Generate Bitstream with CVA6
 
